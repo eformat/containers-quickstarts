@@ -1,6 +1,7 @@
 FROM quay.io/openshift/origin-jenkins-agent-base:latest
 
 ENV MAVEN_VERSION=3.6 \
+    YQ_VERSION=3.3.0 \
     BASH_ENV=/usr/local/bin/scl_enable \
     ENV=/usr/local/bin/scl_enable \
     PROMPT_COMMAND=". /usr/local/bin/scl_enable" \
@@ -22,7 +23,9 @@ RUN INSTALL_PKGS="java-11-openjdk-devel.x86_64 java-1.8.0-openjdk-devel.x86_64 r
     mkdir -p $HOME/.m2 && \
     rm -rf /var/cache/yum && \
     rm -rf /etc/pki/entitlement && \
-    rm -rf /etc/rhsm
+    rm -rf /etc/rhsm && \
+    curl -sL  https://github.com/mikefarah/yq/releases/download/${YQ_VERSION}/yq_linux_amd64 -o /usr/local/bin/yq && \
+    chmod -R 775 /usr/local/bin/yq
 
 # When bash is started non-interactively, to run a shell script, for example it
 # looks for this variable and source the content of this file. This will enable
