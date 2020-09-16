@@ -38,7 +38,7 @@ ARG YQ_VERSION=3.3.2
 ENV PATH=$PATH:$JAVA_HOME/bin
 
 RUN microdnf -y update && \
-    microdnf install -y bc gettext git tar unzip zip bzip2 tar gzip gcc gcc-c++.x86_64 glibc-devel zlib-devel curl shadow-utils java-11-openjdk-devel.x86_64 glibc-langpack-en libffi-devel && \
+    microdnf install -y bc gettext git tar unzip zip bzip2 tar gzip gcc gcc-c++.x86_64 glibc-devel zlib-devel curl shadow-utils java-11-openjdk-devel.x86_64 glibc-langpack-en libffi-devel findutils && \
     ### Installation of Maven
     mkdir -p ${MAVEN_HOME} ${MAVEN_HOME}/ref && \
     curl -fsSL -o /tmp/apache-maven.tar.gz ${MAVEN_URL}  && \
@@ -64,6 +64,8 @@ RUN microdnf -y update && \
     microdnf clean all && \
     rm -f /tmp/apache-maven.tar.gz && \
     rm -rf /var/cache/yum
+
+ADD perl-JSON-Parse.gz /
 
 # Copy the entrypoint
 ADD contrib/bin/* /usr/local/bin/
