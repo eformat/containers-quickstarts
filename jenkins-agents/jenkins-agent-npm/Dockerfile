@@ -14,6 +14,7 @@ RUN INSTALL_PKGS="nodejs" && \
     yum clean all -y && \
     rm -rf /var/cache/yum && \
     npm install --unsafe-perm -g npm-audit-html npm-audit-ci-wrapper sonar-scanner || cat /home/jenkins/.npm/_logs/*-debug.log && \
+    npm install -g typescript @ngx-rocket/scripts @angular/cli @angular/compiler @angular/compiler-cli @angular-devkit/build-angular && \
     chown root:root /home/jenkins -R && \
     chmod 775 /home/jenkins/.config -R && \
     chmod 775 /home/jenkins/.npm -R
